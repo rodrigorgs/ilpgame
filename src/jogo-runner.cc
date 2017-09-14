@@ -21,9 +21,9 @@ typedef struct {
 } retangulo;
 retangulo jogador;
 retangulo arvores[QTD_MAX_ARVORES];
-float velocidadeLateral = 1.5f;
-float velocidadeVertical = 1.0;
-float aceleracaoVertical = 0.05f;
+float velocidadeLateral = 6.0f;
+float velocidadeVertical = 4.0;
+float aceleracaoVertical = 0.2f;
 
 void inicializaArvore(int i) {
   arvores[i].largura = ARVORE_LARGURA;

@@ -31,6 +31,7 @@ void draw() {
 
 int main(int argc, char *argv[]) {
   initSDL();
+  disableFPSLimiting();
   gameLoop();
 
   return 0;

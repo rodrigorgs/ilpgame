@@ -25,8 +25,6 @@ void update() {
   if (keyboard[SDL_SCANCODE_UP]) playery -= velocidade;
   if (keyboard[SDL_SCANCODE_LEFT]) playerx -= velocidade;
   if (keyboard[SDL_SCANCODE_RIGHT]) playerx += velocidade;
-
-  SDL_Delay(1000.0 / 60);
 }
 
 void draw() {

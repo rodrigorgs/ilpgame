@@ -84,8 +84,6 @@ void draw() {
 
   drawLine(carro.x, carro.y, x2, y2, 255, 0, 0);
   drawLine(0.3 * carro.x + 0.7 * x2, 0.3 * carro.y + 0.7 * y2, x2, y2, 0, 255, 0);
-
-  SDL_Delay(1000 / 60);
 }
 
 int main(int argc, char *argv[]) {

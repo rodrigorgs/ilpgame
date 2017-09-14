@@ -55,8 +55,6 @@ void update() {
 
 void draw() {
   drawImage(jogador.img, jogador.x, jogador.y);
-
-  SDL_Delay(1000 / 60);
 }
 
 int main(int argc, char *argv[]) {
