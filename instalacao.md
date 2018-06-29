@@ -6,7 +6,7 @@ order: 2
 
 Antes de usar a ILP Game, você precisa instalar suas dependências:
 
-- compilador de C++ (preferencialmente o g++)
+- compilador de C++ compatível com C++11 ou mais recente (preferencialmente o g++)
 - biblioteca SDL2
 - biblioteca SDL2\_image
 - biblioteca SDL2\_ttf

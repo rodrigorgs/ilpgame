@@ -9,7 +9,7 @@ Para compilar um programa que usa a biblioteca ILP Game, primeiramente abra um t
 ### Linux ou macOS
 
 ```bash
-g++ alomundo.cpp -o alomundo `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+g++ -std=c++11 alomundo.cpp -o alomundo `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 ```
 
 Para rodar, basta executar o comando `./alomundo`.
@@ -17,7 +17,7 @@ Para rodar, basta executar o comando `./alomundo`.
 ## Windows (com MinGW)
 
 ```bash
-g++ alomundo.cpp -o alomundo -I "C:\MinGW\include\SDL2" -mwindows -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
+g++ -std=c++11 alomundo.cpp -o alomundo -I "C:\MinGW\include\SDL2" -mwindows -lmingw32 -lSDL2main -lSDL2 -lSDL2_ttf -lSDL2_image -lSDL2_mixer
 ```
 
 (Se você tiver instalado o MinGW em um local diferente de `C:\MinGW`, altere o comando.)
