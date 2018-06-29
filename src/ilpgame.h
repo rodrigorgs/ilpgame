@@ -23,7 +23,7 @@ SOFTWARE.
 
 ----------------------------------
 
-Biblioteca ILP Game, versão 1.0.
+Biblioteca ILP Game, versão 1.0.1.
 
 ----------------------------------
 
@@ -34,13 +34,22 @@ Programação (ILP).
 
 Mais informações: https://rodrigorgs.github.io/ilpgame
 
+----------------------------------
+
+
+Para projetos com múltiplos arquivos de implementação (.cc, .cpp),
+insira a linha
+
+  #define ILPGAME_HEADER_ONLY
+
+antes do #include "ilpgame.h" em todos os arquivos .cc/.cpp exceto um.
+
 */
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <iostream>
-#include <sstream>
 #include <cstdlib> // exit
 
 #ifdef __EMSCRIPTEN__
@@ -49,21 +58,13 @@ Mais informações: https://rodrigorgs.github.io/ilpgame
 
 #define DEFAULT_FPS (30)
 
-// https://stackoverflow.com/questions/5590381/easiest-way-to-convert-int-to-string-in-c
-#define tostring(x) static_cast<std::ostringstream&>( \
-        (std::ostringstream() << std::dec << x)).str()
-
 using namespace std;
 
-SDL_Window *window = NULL;
-SDL_Surface *screen = NULL;
-SDL_Renderer *renderer = NULL;
+// https://stackoverflow.com/questions/5590381/easiest-way-to-convert-int-to-string-in-c
+#define tostring(x) to_string(x)
 
-Uint32 lastTime = 0;
-Uint32 minDeltaTime = 1000 / DEFAULT_FPS;
-bool gameLoopQuit = false;
 
-////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
 // Funções definidas pelo usuário
 ////////////////////////////////////////////
 
@@ -72,6 +73,54 @@ void destroy();
 void processEvent(SDL_Event event);
 void update();
 void draw();
+
+////////////////////////////////////////////
+// Cabeçalho
+////////////////////////////////////////////
+
+void initSDL_ttf();
+void initSDL_image();
+void initSDL_mixer();
+void initSDL_base(int width, int height);
+void initSDL(int width, int height);
+void initSDL();
+void cleanScreen(int r, int g, int b);
+void cleanScreen();
+void updateScreen();
+void drawText(string text, TTF_Font *font, SDL_Color color, int x, int y);
+void drawImage(SDL_Surface *surface, int x, int y);
+void drawCenteredImage(SDL_Surface *surface, int x, int y);
+void drawLine(int x1, int y1, int x2, int y2, int r, int g, int b);
+void limitFPS(int fps);
+void disableFPSLimiting();
+void endGameLoop();
+void gameLoopIteration(void *arg);
+void gameLoop();
+
+bool isQuitEvent(SDL_Event event);
+SDL_Surface *loadBMP(string filename);
+SDL_Surface *loadImage(string filename);
+TTF_Font *loadFont(string filename, int size);
+Mix_Music *loadMusic(string filename);
+Mix_Chunk *loadSound(string filename);
+Mix_Music *loadMusic(string filename);
+Mix_Chunk *loadSound(string filename);
+
+
+////////////////////////////////////////////
+// Variáveis globais
+////////////////////////////////////////////
+
+// Inspirado pela biblioteca EmbeddableWebServer.h
+#ifndef ILPGAME_HEADER_ONLY
+
+SDL_Window *window = NULL;
+SDL_Surface *screen = NULL;
+SDL_Renderer *renderer = NULL;
+
+Uint32 lastTime = 0;
+Uint32 minDeltaTime = 1000 / DEFAULT_FPS;
+bool gameLoopQuit = false;
 
 ////////////////////////////////////////////
 // Inicializacao
@@ -381,3 +430,4 @@ void gameLoop() {
   // destroy() is called by quit(), which is called because of atexit()
 }
 
+#endif

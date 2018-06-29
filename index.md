@@ -41,6 +41,8 @@ int main(int argc, char *argv[]) {
 }
 ```
 
+OBS.: Se você tiver múltiplos arquivos `.cc` ou `.cpp`, insira a linha `#define ILPGAME_HEADER_ONLY` antes do `#include` em todos os seus arquivos `.cc`/`.cpp` exceto um.
+
 ## Orientações
 
 - [Dependências e instalação](instalacao): o que você precisa fazer antes de usar a ILP Game
