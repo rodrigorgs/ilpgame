@@ -50,6 +50,7 @@ antes do #include "ilpgame.h" em todos os arquivos .cc/.cpp exceto um.
 #include <SDL_ttf.h>
 #include <SDL_mixer.h>
 #include <iostream>
+#include <string>
 #include <cstdlib> // exit
 
 #ifdef __EMSCRIPTEN__
@@ -61,10 +62,10 @@ antes do #include "ilpgame.h" em todos os arquivos .cc/.cpp exceto um.
 using namespace std;
 
 // https://stackoverflow.com/questions/5590381/easiest-way-to-convert-int-to-string-in-c
+// C++11
 #define tostring(x) to_string(x)
 
-
-///////////////////////////////////////////////////////////////////
+////////////////////////////////////////////
 // Funções definidas pelo usuário
 ////////////////////////////////////////////
 
@@ -73,6 +74,12 @@ void destroy();
 void processEvent(SDL_Event event);
 void update();
 void draw();
+
+#define changeScene(name) {\
+  __destroy(); \
+  changeFuncs(name ## _init, name ## _destroy, name ## _processEvent, name ## _update, name ## _draw); \
+  __init(); \
+}
 
 ////////////////////////////////////////////
 // Cabeçalho
@@ -106,6 +113,7 @@ Mix_Chunk *loadSound(string filename);
 Mix_Music *loadMusic(string filename);
 Mix_Chunk *loadSound(string filename);
 
+void changeFuncs(void (*funcInit)(), void (*funcDestroy)(), void (*funcProcessEvent)(SDL_Event event), void (*funcUpdate)(), void (*funcDraw)());
 
 ////////////////////////////////////////////
 // Variáveis globais
@@ -123,11 +131,72 @@ Uint32 minDeltaTime = 1000 / DEFAULT_FPS;
 bool gameLoopQuit = false;
 
 ////////////////////////////////////////////
+// Gerenciamento de cenas
+////////////////////////////////////////////
+
+void (*__init)() = init;
+void (*__destroy)() = destroy;
+void (*__processEvent)(SDL_Event event) = processEvent;
+void (*__update)() = update;
+void (*__draw)() = draw;
+
+// void __init() {
+//   if (sceneInit) {
+//     sceneInit();
+//   } else {
+//     init();
+//   }
+// }
+// void __destroy() {
+//   if (sceneDestroy) {
+//     sceneDestroy();
+//   } else {
+//     destroy();
+//   }
+// }
+// void __processEvent(SDL_Event event) {
+//   if (sceneProcessEvent) {
+//     sceneProcessEvent(event);
+//   } else {
+//     processEvent(event);
+//   }
+// }
+// void __update() {
+//   if (sceneUpdate) {
+//     sceneUpdate();
+//   } else {
+//     update();
+//   }
+// }
+// void __draw() {
+//   if (sceneDraw) {
+//     sceneDraw();
+//   } else {
+//     draw();
+//   }
+// }
+
+void changeFuncs(void (*funcInit)(), void (*funcDestroy)(), void (*funcProcessEvent)(SDL_Event event), void (*funcUpdate)(), void (*funcDraw)()) {
+  __init = funcInit;
+  __destroy = funcDestroy;
+  __processEvent = funcProcessEvent;
+  __update = funcUpdate;
+  __draw = funcDraw;
+}
+
+void changeToDefaultScene() {
+  __destroy();
+  changeFuncs(init, destroy, processEvent, update, draw);
+  __init();
+}
+
+
+////////////////////////////////////////////
 // Inicializacao
 ////////////////////////////////////////////
 
 void quit() {
-  destroy();
+  __destroy();
 
   if (TTF_WasInit()) {
     TTF_Quit();
@@ -384,17 +453,17 @@ void gameLoopIteration(void *arg) {
   }
 
   while (SDL_PollEvent(&event) != 0 && !gameLoopQuit) {
-    processEvent(event);
+    __processEvent(event);
   }
 
   if (!gameLoopQuit) {
-    update();
+    __update();
   }
 
   if (!gameLoopQuit) {
     SDL_RenderClear(renderer);
     cleanScreen();
-    draw();
+    __draw();
     SDL_RenderPresent(renderer);
     updateScreen();
   }
@@ -416,7 +485,7 @@ void gameLoopIteration(void *arg) {
 void gameLoop() {
   gameLoopQuit = false;
 
-  init();
+  __init();
 
 #ifdef __EMSCRIPTEN__
   int simulate_infinite_loop = 1;

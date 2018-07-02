@@ -35,3 +35,13 @@ Informações adicionais:
     - **`gameLoop()`**: executa o game loop (`processEvent`, `update`, `draw`), precedido de `init()` e sucedido por `destroy()`.
     - **`endGameLoop()`**: finaliza a executação do game loop
     - **`isQuitEvent(event)`**: indica se o evento `event` corresponde a fechar a janela ou teclar Esc.
+
+## Cenas
+
+O sistema de cenas permite que se organize melhor o código de diferentes partes de um jogo (denominadas *cenas*), como menu principal, tela de créditos, partida, entre outros. 
+
+Cada cena possui seu próprio game loop. A cena padrão é implementada através das funções `init()`, `destroy()`, `processEvent()`, `update()` e `draw()`. As demais cenas são implementadas por funções com esses mesmos nomes prefixados pelo nome da cena seguido de um underline. Assim, a cena "jogo" é implentada pelas funções `jogo_init()`, `jogo_destroy()`, `jogo_processEvent()`, `jogo_update()` e `jogo_draw()`.
+
+Ao trocar de cena, executa-se a função `destroy` da cena atual e a função `init` da nova cena.
+
+Para trocar para uma cena chamada `jogo`, use a seguinte instrução: `changeScene(jogo)` (note que não há aspas na palavra `jogo`). Para trocar para a cena padrão, use a função `changeToDefaultScene()`.
