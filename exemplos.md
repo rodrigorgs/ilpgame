@@ -19,7 +19,7 @@ Exemplos básicos:
 - [Limitar FPS](src/tut-limitfps.cc): limita a taxa de atualização do jogo (FPS) para que ele rode na mesma velocidade em todos os computadores
 - [Áudio](src/tut-audio.cc)
 - Como usar a ILP Game em projetos com múltiplos arquivos `.cc`/`.cpp`: [tut-arquivo1.cc](src/tut-arquivo1.cc), [tut-arquivo1.cc](src/tut-arquivo1.cc), [tut-arquivo.h](src/tut-arquivo.h)
-- [Uso de cenas](src/tut-cena.cc)
+- [Exemplo simples com cenas](src/tut-cena.cc), [jogo de labirinto com cenas](src/jogo-labirinto-cena.cc)
 
 Demonstrações:
 
