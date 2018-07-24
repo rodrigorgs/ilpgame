@@ -29,6 +29,6 @@ Demonstrações:
 
 Jogos:
 
-- [Labirinto](src/jogo-labirinto.cc): movimente com setas direcionais
+- [Labirinto](src/jogo-labirinto.cc): movimente com setas direcionais, [Labirinto com itens](src/jogo-labirinto-itens.cc)
 - [Runner](src/jogo-runner.cc): mova para os lados para se desviar dos obstáculos
 
