@@ -12,7 +12,7 @@ Exemplos básicos:
 - [Movimentar imagem ao pressionar tecla direcional](src/tut-keypress.cc)
 - [Movimentar imagem de acordo com o estado das teclas direcionais](src/tut-keystate.cc) (experimente andar na diagonal)
   + Veja também os códigos de teclas na [documentação do SDL_Keycode](src/https://wiki.libsdl.org/SDL_Keycode).
-- [Desenhar imagem sob o cursor do mouse](src/tut-mouse.cc) (ao segurar o botão esquerdo do mouse, a imagem muda)
+- [Desenhar imagem sob o cursor do mouse](src/tut-mouse.cc) (ao segurar o botão esquerdo do mouse, a imagem muda), [Editor de pixel art (clicar desenha ou apaga, dependendo se foi o botão esquerdo ou direito do mouse)](src/tut-pixel-art.cc)
 - [Desenhar texto](src/tut-texto.cc)
 - [Escrever com o teclado](src/tut-escreve.cc): aceita teclas de A a Z e backspace
 - [Contador de tempo](src/tut-timer.cc)
